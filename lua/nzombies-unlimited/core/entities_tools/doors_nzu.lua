@@ -130,6 +130,27 @@ if SERVER then
 		-- Sanity check
 		data.Price = data.Price or 0
 
+		-- [ZT] Text-Fix - Display Price/Group/Electricity
+		self:SetNW2String("nzu_DoorData_Price", data.Price)
+		if data.Group and data.Group != nil then
+			self:SetNW2String("nzu_DoorData_Group", (data.Group or "\""))
+		end
+		if data.Electricity and data.Electricity != false then
+			self:SetNW2String("nzu_DoorData_Electricity", (data.Electricity and "1" or "0"))
+		end
+		if data.FlagOpen and data.FlagOpen != false then
+			self:SetNW2String("nzu_DoorData_FlagOpen", (data.FlagOpen and "1" or "0"))
+		end
+		local str = ""
+		if data.Rooms then
+			for k,v in pairs(data.Rooms) do
+				str = str .. v .. " "
+			end
+			str = string.Trim(str)
+		end
+		self:SetNW2String("nzu_DoorData_Rooms", str)
+		-- ZT END
+
 		local networkclone
 		if data.Group then
 			local gtbl = doorgroups[data.Group]

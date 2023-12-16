@@ -55,6 +55,28 @@ if SERVER then
 		if data.Group == "" then data.Group = nil end
 
 		self.nzu_DoorData = data
+
+		-- [ZT] Text-Fix - Display Price/Group/Electricity
+		self:SetNW2String("nzu_DoorData_Price", data.Price)
+		if data.Group and data.Group != nil then
+			self:SetNW2String("nzu_DoorData_Group", (data.Group or "\""))
+		end
+		if data.Electricity and data.Electricity != false then
+			self:SetNW2String("nzu_DoorData_Electricity", (data.Electricity and "1" or "0"))
+		end
+		if data.FlagOpen and data.FlagOpen != false then
+			self:SetNW2String("nzu_DoorData_FlagOpen", (data.FlagOpen and "1" or "0"))
+		end
+		local str = ""
+		if data.Rooms then
+			for k,v in pairs(data.Rooms) do
+				str = str .. v .. " "
+			end
+			str = string.Trim(str)
+		end
+		self:SetNW2String("nzu_DoorData_Rooms", str)
+		-- ZT END
+
 		net.Start("nzu_doors")
 			networkdoordata(self, data)
 		net.Broadcast()
@@ -155,13 +177,32 @@ else
 	-- Draw door to text
 	hook.Add("nzu_GetTargetIDText", "nzu_Doors_TargetID", function(ent)
 		local data = ent:GetDoorData()
+
+		-- [ZT] Text-Fix
+		local price = ent:GetNW2String("nzu_DoorData_Price")
+		if price == nil or price == "" then return end
+
+		local flags = ent:GetNW2String("nzu_DoorData_Rooms")
+		local tbl
+		if flags ~= "" then
+			tbl = string.Explode(" ", string.Trim(flags))
+		end
+		local data = {
+			Price = ent:GetNW2String("nzu_DoorData_Price"),
+			Group = ent:GetNW2String("nzu_DoorData_Group"),
+			Electricity = ent:GetNW2String("nzu_DoorData_Electricity") == "1",
+			Rooms = tbl,
+			FlagOpen = ent:GetNW2String("nzu_DoorData_FlagOpen") == "1",
+		}
+		-- ZT END
+
 		if data then
 			if ent.nzu_DoorHooked then
 				return "This will be opened with Group ["..data.Group.."]"
 			end
 
 			local str = "Locked Door ["..data.Price.."]"
-			if data.Group then
+			if data.Group and data.Group != "" then -- [ZT] Text-Fix
 				str = str .. "[Group: "..data.Group.."]"
 			end
 			if data.Electricity then

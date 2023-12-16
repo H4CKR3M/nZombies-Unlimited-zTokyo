@@ -164,7 +164,28 @@ else
 	-- Draw text for the buy function
 	hook.Add("nzu_GetTargetIDText", "nzu_PlayerUse_TargetID", function(ent)
 		local data = ent:GetBuyFunction()
-		if data and data.TargetIDType then
+
+		-- [ZT] Text-Fix
+		local price = ent:GetNW2String("nzu_DoorData_Price")
+		if price == nil or price == "" then return end
+
+		local flags = ent:GetNW2String("nzu_DoorData_Rooms")
+		local tbl
+		if flags ~= "" then
+			tbl = string.Explode(" ", string.Trim(flags))
+		end
+		local data = {
+			Text = "",
+			Price = ent:GetNW2String("nzu_DoorData_Price"),
+			Group = ent:GetNW2String("nzu_DoorData_Group"),
+			Electricity = ent:GetNW2String("nzu_DoorData_Electricity") == "1",
+			Rooms = tbl,
+			FlagOpen = ent:GetNW2String("nzu_DoorData_FlagOpen") == "1",
+		}
+		data.Text = "Press E to clear for " .. tostring(data.Price)
+		-- ZT END
+
+		if data then -- [ZT] Text-Fix
 			if data.Electricity and not ent:HasElectricity() then
 				return "Requires Electricity", TARGETID_TYPE_ELECTRICITY
 			end
