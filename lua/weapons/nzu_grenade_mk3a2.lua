@@ -39,8 +39,8 @@ SWEP.ThrowForce = 1000
 SWEP.GrenadeCanCook = true
 SWEP.GrenadeTime = 3
 SWEP.GrenadeDamage = 500
-SWEP.GrenadeDamageRadius = 250
-SWEP.GrenadeMax = 4
+SWEP.GrenadeDamageRadius = 1000 -- [ZT] Balancing
+SWEP.GrenadeMax = 6 -- [ZT] Balancing
 SWEP.AmmoPerRound = 2
 
 if CLIENT then SWEP.HUDIcon = Material("nzombies-unlimited/hud/mk3a2_icon.png", "unlitgeneric smooth") end -- CONTENT
@@ -135,7 +135,7 @@ if SERVER then
 				util.Effect("Explosion", e, false, true)
 
 				nade:Remove()
-				util.BlastDamage(nade, self.Owner, nade:GetPos(), self.GrenadeDamageRadius, 1)
+				util.BlastDamage(nade, self.Owner, nade:GetPos(), self.GrenadeDamageRadius, self.GrenadeDamage) -- [ZT] Balancing
 			end
 		end)
 
