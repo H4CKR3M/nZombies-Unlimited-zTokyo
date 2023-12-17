@@ -3,15 +3,15 @@
 	"Set":{
 		"MysteryBox":{
 			"Laugh":[
-				"nzu/mysterybox/disappear_flux.wav"
+				"nzu/announcer/samantha/mysterybox/leave.wav"
 			],
 			"Leave":[
-				"nzu/announcer/samantha/byebye.wav"
+				"nzu/announcer/samantha/mysterybox/byebye.wav"
 			]
 		},
 		"Round":{
 			"SpecialStart":[
-				"nzu/announcer/samantha/dogstart.wav"
+				"nzu/round/specialround_start.wav"
 			]
 		},
 		"Powerups":{

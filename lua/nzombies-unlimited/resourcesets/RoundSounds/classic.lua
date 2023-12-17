@@ -2,13 +2,13 @@
 	"Name":"Classic",
 	"Set":{
 		"Start":[
-			"nzu/round/round_start.mp3"
+			"nzu/round/classic/start/round_start.mp3"
 		],
 		"GameOver":[
-			"nzu/round/game_over_5.mp3"
+			"nzu/round/classic/gameover/game_over_derriese.mp3"
 		],
 		"End":[
-			"nzu/round/round_end.mp3"
+			"nzu/round/classic/end/round_end.mp3"
 		]
 	}
 }
