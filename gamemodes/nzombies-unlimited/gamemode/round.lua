@@ -12,6 +12,12 @@ ROUND_GAMEOVER = 3
 ROUND.Round = 0
 ROUND.State = ROUND_WAITING
 
+-- [ZT] Auto-Kill. config parameters
+local PercentRemainingToRestart = 0.3 -- 30%
+local LowWaveMax = 4
+local HighZombiesMax = 10
+local SecondsBeforeAutokill = 30
+
 local roundbits = 16 -- 2^16 max round (65536)
 
 --[[-------------------------------------------------------------------------
@@ -19,6 +25,7 @@ Shared getters
 ---------------------------------------------------------------------------]]
 function ROUND:GetRound() return self.Round end
 function ROUND:GetState() return self.State end
+function ROUND:GetStartingZombieCount() return self.StartingZombieCount end -- [ZT] Auto-Kill. Get Max Zombies
 
 --[[-------------------------------------------------------------------------
 Basic Round logic
@@ -74,6 +81,14 @@ if SERVER then
 		ROUND.Zombies[z] = true
 	end
 
+	-- [ZT] Auto-Kill. Kill remaining zombies
+	local function killremainingzombies()
+		local tbl = ROUND:GetZombies()
+		for k,v in pairs(tbl) do
+			v:Suicide()
+		end
+	end
+
 	local function dozombiedeath(z)
 		if ROUND.Zombies[z] then
 			if z.nzu_RefundOnDeath then
@@ -82,9 +97,39 @@ if SERVER then
 			ROUND.Zombies[z] = nil
 			ROUND.NumberZombies = ROUND.NumberZombies - 1
 
+			-- [ZT] Auto-Kill. Set timer to kill last remaining zombies
+			if (ROUND:GetRound() <= LowWaveMax) then
+				if (ROUND.NumberZombies <= ROUND:GetStartingZombieCount() * PercentRemainingToRestart) then
+					if (timer.Exists("KillAllZombies")) then
+						timer.Remove("KillAllZombies")
+					end
+					
+					timer.Create("KillAllZombies", SecondsBeforeAutokill, SecondsBeforeAutokill + 1, function()
+						killremainingzombies()
+					end)
+				end
+			else
+				if (ROUND.NumberZombies <= HighZombiesMax) then
+					if (timer.Exists("KillAllZombies")) then
+						timer.Remove("KillAllZombies")
+					end
+					
+					timer.Create("KillAllZombies", SecondsBeforeAutokill, SecondsBeforeAutokill + 1, function()
+						killremainingzombies()
+					end)
+				end
+			end
+			-- END ZT
+
 			hook.Run("nzu_ZombieKilled", z)
 
 			if ROUND:GetRemainingZombies() <= 0 then
+
+				-- [ZT] Auto-Kill. Remove Timer on new wave
+				if (timer.Exists("KillAllZombies")) then
+					timer.Remove("KillAllZombies")
+				end
+
 				ROUND:Progress()
 			end
 		end
@@ -176,6 +221,7 @@ if SERVER then
 		self.State = ROUND_PREPARING
 		donetwork()
 
+		self.StartingZombieCount = self:CalculateZombieAmount() -- [ZT] Auto-Kill Set Max Zombies
 		self.ZombiesToSpawn = self:CalculateZombieAmount()
 		self.ZombieHealth = self:CalculateZombieHealth()
 		--self.ZombieSpeeds = self:CalculateZombieSpeed()
@@ -224,6 +270,7 @@ if SERVER then
 
 			self:SpawnPlayers()
 
+			self.StartingZombieCount = self:CalculateZombieAmount() -- [ZT] Auto-Kill. Max zombies per wave
 			self.ZombiesToSpawn = self:CalculateZombieAmount()
 			self.ZombieHealth = self:CalculateZombieHealth()
 

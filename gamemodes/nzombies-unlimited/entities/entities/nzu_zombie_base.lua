@@ -528,6 +528,11 @@ if SERVER then
 		end
 	end
 
+	-- [ZT] Auto-kill. Perform Suicide
+	function ENT:PerformSuicide()
+		self:PlaySound(self.DeathSounds[math.random(#self.DeathSounds)])
+		self:DoDeathAnimation(self.DeathAnimations[math.random(#self.DeathAnimations)])
+	end
 
 	-- Select a spawn sequence and sound to play. This is called after everything is initialized
 	-- so it can be made dependant on certain properties defined on spawning
@@ -1291,6 +1296,14 @@ if SERVER then
 		hook.Run("OnNPCKilled", self, dmg:GetAttacker(), dmg:GetInflictor())
 		self:OnDeath(dmg)
 		self:PerformDeath(dmg)
+	end
+
+	-- [ZT] Auto-Kill. Suicide
+	function ENT:Suicide()
+		print("Commiting Suicide...")
+		self:SetAlive(false)
+		self:SetCollisionGroup(COLLISION_GROUP_DEBRIS_TRIGGER)
+		self:PerformSuicide()
 	end
 end
 

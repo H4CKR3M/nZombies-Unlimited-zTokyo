@@ -16,12 +16,11 @@ All edits are prefixed with the [ZT] prefix, to better help CTRL+F finding chang
 * [ZT] Text-Fix
 * [ZT] Balancing
 * [ZT] UI
-* [ZT] 
-* [ZT] 
-* [ZT] 
-* [ZT] 
-* [ZT] 
-* [ZT] 
+* [ZT] Auto-kill
+* [ZT] Escaped Plugin
+* [ZT] Mapvote System
+* [ZT] Exception Handling
+* [ZT] Auto-Load
 
 # nZombies Unlimited
 nZombies Unlimited is an experimental idea of breaking the [original nZombies](https://github.com/Zet0rz/nzombies) free from its limits. It is a complete recreation built from the ground up with the idea of modularizing _everything_ and supporting full toolkits for Config creation.
