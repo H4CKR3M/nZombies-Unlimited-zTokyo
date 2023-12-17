@@ -4,7 +4,7 @@ This is an edited version of the nZombies-Unlimited mod with changed made for th
 Changes:
 * Autoload Config
 * Mapvote Support
-* Escape Feature / Victory Condition
+* Escape Feature / Victory Condition - just set a door's purchase price to exactly **100** and make it **Require Electricity**. Purchasing it will win the game.
 * Auto-Kill Remaining Zombies (anti-stuck)
 * Rebalancing
 

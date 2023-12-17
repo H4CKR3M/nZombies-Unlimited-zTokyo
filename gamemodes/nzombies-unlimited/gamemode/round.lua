@@ -2,6 +2,7 @@
 local ROUND = nzu.Round or {}
 nzu.Round = ROUND
 local SETTINGS = nzu.GetExtension("core").Settings
+local gameOver = false; -- [ZT] Mapvote System 
 
 ROUND_INVALID = -1
 ROUND_WAITING = 0
@@ -333,6 +334,11 @@ if SERVER then
 		self.State = ROUND_GAMEOVER
 
 		PrintMessage(HUD_PRINTTALK, "GAME OVER! You survived "..self.Round.." rounds.")
+
+		-- [ZT] Mapvote System 
+		if MapVote then
+			pcall(function () MapVote.Start() end)
+		end
 
 		--donetwork()
 
