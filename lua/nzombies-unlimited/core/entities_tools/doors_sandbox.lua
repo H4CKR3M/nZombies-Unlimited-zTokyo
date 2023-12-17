@@ -305,7 +305,7 @@ if CLIENT then
 	function TOOL.BuildCPanel(panel)
 		panel:Help("Create Locks on props and doors that can be bought in-game.\nTip: You can type in a custom price in the text.")
 
-		local slider = panel:NumSlider("Price", "nzu_tool_doorlock_price", 0, 50000, 0) -- [ZT] Balancing. Door Price
+		local slider = panel:NumSlider("Price", "nzu_tool_doorlock_price", 0, 50000, 0) -- [ZT] Rebalancing. Door Price
 		function slider:TranslateSliderValues(x,y)
 			local val = self.Scratch:GetMin() + x*self.Scratch:GetRange()
 
@@ -398,7 +398,7 @@ properties.Add("nzu_DoorLock", {
 
 		local val_price = data and data.Price or 1000
 		local price = top:CreateRow("Lock Properties", "Price")
-		price:Setup("Int", {min = 0, max = 50000}) -- [ZT] Balancing. Door Price
+		price:Setup("Int", {min = 0, max = 50000}) -- [ZT] Rebalancing. Door Price
 		price:SetValue(val_price)
 		function price:DataChanged(v)
 			val_price = v

@@ -1,33 +1,32 @@
 # nZombies Unlimited ZTokyo
-This is an edited version of the nZombies-Unlimited mod with changed made for the ZTokyo nZombies server, with the goal of the server remaining online without an admin present loading configs and unsticking zombies. You're welcome to use this fork for your own purposes as well.
+This is a fork of the nZombies-Unlimited mod with changes made for the **Zombies in Tokyo** server, with a goal to run the gamemode autonomously without an admin present to load configs and delete stuck zombies. Some rather *radical* balancing changes were put in place, but you're welcome to use this fork for your own purposes, whether that be Singplayer config creation or a dedicated server.
 
-Changes:
-* Autoload Config
-* Mapvote Support
-* Escape Feature / Victory Condition - just set a door's purchase price to exactly **100** and make it **Require Electricity**. Purchasing it will win the game.
-* Auto-Kill Remaining Zombies (anti-stuck)
-* Rebalancing
+### New Features
+* **<span style="color:#74C4FF">[ZT]</span> Auto-Load Config**
+* **<span style="color:#74C4FF">[ZT]</span> Escaped Plugin** / Victory Condition - To use: set a door's purchase price to exactly **100** and make it **Require Electricity**. Purchasing it causes Victory.
+* **<span style="color:#74C4FF">[ZT]</span> Mapvote Support**
+* **<span style="color:#74C4FF">[ZT]</span> Auto-Kill** Remaining Zombies (anti-softlock)
 
-Fixes:
-* Updated to work with Gmod December 2023 Update
+### Fixes
+* **<span style="color:#74C4FF">UPDATED FOR Garry's Mod December 2023</span>**
 * Door text displays correctly
 * Missing Font Fixes
-* Varius Exception Handling
+* Misc Exception Handling
+* Rebalancing
 
-Bugs:
-* <u>**Save and Play**</u> button does not work, press <u>**Save Config**</u> and <u>**Load and Play**</u> as a workaround
+### Bugs
+* <u>**Save and Play**</u> button does not work, press <u>**Save Config**</u> and <u>**Load and Play**</u> as a workaround.
+* If Playing on a Dedicated Server: Auto-Load takes several seconds to process, I suggest showing players an unskippable MOTD for the first few seconds after loading into a world.
 
-------
-
-All edits are prefixed with the [ZT] prefix, to better help CTRL+F finding changes:
-* [ZT] Text-Fix
-* [ZT] Balancing
-* [ZT] UI
-* [ZT] Auto-kill
-* [ZT] Escaped Plugin
-* [ZT] Mapvote System
-* [ZT] Exception Handling
+### Prefixes
 * [ZT] Auto-Load
+* [ZT] Escaped Plugin
+* [ZT] Mapvote Support
+* [ZT] Auto-kill
+* [ZT] Text-Fix
+* [ZT] UI
+* [ZT] Exception Handling
+* [ZT] Rebalancing
 
 # nZombies Unlimited
 nZombies Unlimited is an experimental idea of breaking the [original nZombies](https://github.com/Zet0rz/nzombies) free from its limits. It is a complete recreation built from the ground up with the idea of modularizing _everything_ and supporting full toolkits for Config creation.

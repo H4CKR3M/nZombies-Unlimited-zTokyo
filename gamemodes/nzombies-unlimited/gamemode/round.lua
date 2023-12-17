@@ -2,7 +2,7 @@
 local ROUND = nzu.Round or {}
 nzu.Round = ROUND
 local SETTINGS = nzu.GetExtension("core").Settings
-local gameOver = false; -- [ZT] Mapvote System 
+local gameOver = false; -- [ZT] Mapvote Support 
 
 ROUND_INVALID = -1
 ROUND_WAITING = 0
@@ -335,7 +335,7 @@ if SERVER then
 
 		PrintMessage(HUD_PRINTTALK, "GAME OVER! You survived "..self.Round.." rounds.")
 
-		-- [ZT] Mapvote System 
+		-- [ZT] Mapvote Support 
 		if MapVote then
 			pcall(function () MapVote.Start() end)
 		end
@@ -365,7 +365,7 @@ if SERVER then
 		PrintMessage(HUD_PRINTTALK, "VICTORY! You survived "..self.Round.." rounds before escaping.")
 		
 		if MapVote then
-			pcall(function () MapVote.Start() end) -- [ZT] Mapvote System 
+			pcall(function () MapVote.Start() end) -- [ZT] Mapvote Support 
 		end
     
 		-- Start : Remove Zombies - I'm Sick of getting killed by zombies after I win.
