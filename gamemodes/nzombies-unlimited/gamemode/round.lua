@@ -11,6 +11,7 @@ ROUND_GAMEOVER = 3
 
 ROUND.Round = 0
 ROUND.State = ROUND_WAITING
+ROUND.UseVictory = 0; -- [ZT] Escaped Plugin
 
 -- [ZT] Auto-Kill. config parameters
 local PercentRemainingToRestart = 0.3 -- 30%
@@ -309,7 +310,8 @@ if SERVER then
 	end
 
 	local gameoversequencetime = 10
-	local gameoverpresequencetime = 10
+	local gameoverpresequencetime = 20 -- [ZT] Escaped Plugin. Enlarged. Uses an else, so this can be changed freely
+	local victorypresequencetime = 24 -- [ZT] Escaped Plugin. victory DIRECTLY tied to this value. MUST BE 24 (TO change it, you'll have to change the second instance as well)
 	local function dogameoversequence()
 
 		net.Start("nzu_gamestartend")
@@ -325,6 +327,7 @@ if SERVER then
 		end
 	end
 	function ROUND:GameOver()
+		ROUND.UseVictory = 1; -- [ZT] Escaped Plugin
 		timer.Remove("nzu_Round_Prepare")
 		hook.Remove("Think", "nzu_Round_Spawning")
 		self.State = ROUND_GAMEOVER
@@ -345,6 +348,42 @@ if SERVER then
 
 		hook.Run("nzu_GameOver", gameoverpresequencetime)
 	end
+
+	-- [ZT] Escaped Plugin
+	function ROUND:Victory() 
+		ROUND.UseVictory = 1;
+		timer.Remove("nzu_Round_Prepare")
+		hook.Remove("Think", "nzu_Round_Spawning")
+		self.State = ROUND_GAMEOVER
+    
+		PrintMessage(HUD_PRINTTALK, "VICTORY! You survived "..self.Round.." rounds before escaping.")
+		
+		if MapVote then
+			pcall(function () MapVote.Start() end) -- [ZT] Mapvote System 
+		end
+    
+		-- Start : Remove Zombies - I'm Sick of getting killed by zombies after I win.
+		killremainingzombies()
+		ROUND.Zombies = {}
+		ROUND.NumberZombies = 0
+		ROUND.ZombiesToSpawn = 0
+		ROUND.State = ROUND_WAITING
+		-- End : Remove Zombies
+	
+		--donetwork()
+
+		net.Start("nzu_gamestartend")
+			net.WriteBool(false)
+			net.WriteBool(false)
+			net.WriteFloat(victorypresequencetime)
+		net.Broadcast()
+
+		if not timer.Start("nzu_Round_GameOver") then
+			timer.Create("nzu_Round_GameOver", victorypresequencetime, 1, dogameoversequence)
+		end
+
+		hook.Run("nzu_GameOver", victorypresequencetime)
+  end
 
 	function ROUND:CalculateZombieHealth()
 		-- 950 for round 10, multiply 1.1 for each round after
@@ -386,7 +425,7 @@ if CLIENT then
 			hook.Run("nzu_RoundStateChanged", ROUND.Round, ROUND.State)
 		else
 			ROUND.State = ROUND_GAMEOVER
-			local h = net.ReadBool() and "nzu_GameOverSequence" or "nzu_GameOver"
+			local h = net.ReadBool() and "nzu_GameOverSequence" or "nzu_GameOver" or "nzu_Victory" -- [ZT] Escaped Plugin
 			hook.Run(h, net.ReadFloat())
 		end
 	end)
@@ -446,6 +485,12 @@ if SERVER then
 	end)
 
 	hook.Add("nzu_GameOver", "nzu_Round_Sounds", function()
+		local s = sounds.GameOver and sounds.GameOver[math.random(#sounds.GameOver)]
+		if s then nzu.PlayClientSound(s) end
+	end)
+
+	-- [ZT] Escaped Plugin
+	hook.Add("nzu_Victory", "nzu_Round_Sounds", function()
 		local s = sounds.GameOver and sounds.GameOver[math.random(#sounds.GameOver)]
 		if s then nzu.PlayClientSound(s) end
 	end)

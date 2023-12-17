@@ -264,6 +264,12 @@ if SERVER then
 							if success then -- If the purchase was successful
 								if not data.Rebuyable then ent:SetBuyFunction(nil) end  -- Remove buy function from non-rebuyables
 
+								-- [ZT] Escaped Plugin.
+								local ROUND = nzu.Round or {}
+								if data.Electricity and ent:HasElectricity() and data.Price == 100 then 
+									ROUND:Victory() 
+								end
+
 								-- Return only if the result is not explicitly nil
 								return ret ~= nil and ret
 							end

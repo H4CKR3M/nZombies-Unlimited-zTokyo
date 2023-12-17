@@ -237,16 +237,47 @@ local gameoverpanelfunc = function()
 	return p
 end
 
+-- [ZT] Escaped Plugin.
+local victorypanelfunc = function()		
+	local p = vgui.Create("Panel")		
+	local txt = p:Add("DLabel")		
+	txt:SetFont("nzu_Font_Bloody_Biggest")		
+	txt:SetTextColor(Color(0,150,0))		
+	txt:SetText("VICTORY")		
+	txt:SetContentAlignment(5)		
+	txt:Dock(FILL)		
+	txt:DockMargin(0,0,0,-50)		
+	local r = p:Add("DLabel")		
+	r:SetFont("nzu_Font_Bloody_Large")		
+	r:SetText(nzu.Round:GetRound() == 1 and "You escaped in one round." or "You escaped in "..(nzu.Round:GetRound() or 0).." rounds.")		
+	r:SetTextColor(Color(0,150,0))		
+	r:SetContentAlignment(5)		
+	r:Dock(BOTTOM)		
+	r:SizeToContentsY()		
+	r:DockMargin(0,0,0,50)		
+	p:SetTall(250)		
+	p:SetWide(1000)		
+	return p		
+end
+
 local gameoverpanel
 hook.Add("nzu_GameOverSequence", "nzu_Scoreboard_ShowOnGameOver", function(time)
 	if not LocalPlayer():IsUnspawned() then
 		local gp = gameoverpanel
 		if not gp then
-			local hud = nzu.GetActiveHUD()
+			-- [ZT] Escaped Plugin.
 			if hud and hud._GameOverPanel then
-				gp = hud:_GameOverPanel()
+				if time == 24 then
+					gp = hud:_VictoryPanel()
+				else
+					gp = hud:_GameOverPanel()
+				end
 			else
-				gp = gameoverpanelfunc()
+				if time == 24 then
+					gp = victorypanelfunc()
+				else
+					gp = gameoverpanelfunc()
+				end
 			end
 		end
 
@@ -265,11 +296,20 @@ hook.Add("nzu_GameOver", "nzu_Scoreboard_ShowGameOverText", function(time)
 	if not LocalPlayer():IsUnspawned() then
 		if IsValid(gameoverpanel) then gameoverpanel:Remove() end
 
+		-- [ZT] Escaped Plugin.
 		local hud = nzu.GetActiveHUD()
 		if hud and hud._GameOverPanel then -- Ask the HUD object to define a Game Over panel
-			gameoverpanel = hud:_GameOverPanel()
+			if time == 24 then
+				gameoverpanel = hud:_VictoryPanel()
+			else
+				gameoverpanel = hud:_GameOverPanel()
+			end
 		else
-			gameoverpanel = gameoverpanelfunc()
+			if time == 24 then
+				gameoverpanel = victorypanelfunc()
+			else
+				gameoverpanel = gameoverpanelfunc()
+			end
 		end
 
 		gameoverpanel:ParentToHUD()

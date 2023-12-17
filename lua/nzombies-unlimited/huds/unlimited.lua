@@ -740,3 +740,29 @@ function HUD:_GameOverPanel()
 
 	return p
 end
+
+-- [ZT] Escaped Plugin.
+function HUD:_VictoryPanel()
+	local p = vgui.Create("Panel")
+	local txt = p:Add("DLabel")
+	txt:SetFont("nzu_Font_Bloody_Biggest")
+	txt:SetTextColor(Color(0,150,0))
+	txt:SetText("VICTORY")
+	txt:SetContentAlignment(5)
+	txt:Dock(FILL)
+	txt:DockMargin(0,0,0,-50)
+
+	local r = p:Add("DLabel")
+	r:SetFont("nzu_Font_Bloody_Large")
+	r:SetText(nzu.Round:GetRound() == 1 and "You escaped in one round." or "You escaped in "..(nzu.Round:GetRound() or 0).." rounds.")
+	r:SetTextColor(Color(0,150,0))
+	r:SetContentAlignment(5)
+	r:Dock(BOTTOM)
+	r:SizeToContentsY()
+	r:DockMargin(0,0,0,50)
+
+	p:SetTall(250)
+	p:SetWide(1000)
+
+	return p
+end
