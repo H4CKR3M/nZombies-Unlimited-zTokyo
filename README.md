@@ -14,8 +14,9 @@ This is a fork of the nZombies-Unlimited mod with changes made for the **Zombies
 * Misc Exception Handling
 * Rebalancing
 
-### Bugs
+### Known Issues
 * <u>**Save and Play**</u> button does not work, press <u>**Save Config**</u> and <u>**Load and Play**</u> as a workaround.
+* Creating a new door will **NOT** create a new room. You must first place a at least one zombie spawner with the desired new room anywhere in the world, <u>**ONLY THEN**</u> (After pressing **Refresh from Server**) will you be able to place down a door with an assigned room.
 * If Playing on a Dedicated Server: Auto-Load takes several seconds to process, I suggest showing players an unskippable MOTD for the first few seconds after loading into a world.
 
 ### Prefixes
