@@ -235,7 +235,7 @@ if CLIENT then
 
 		self.Ping = self.Panel:Add("DLabel")
 		self.Ping:Dock(RIGHT)
-		self.Ping:SetFont("HudHintTextLarge")
+		self.Ping:SetFont("nzu_Font_TargetID") -- [ZT] Exception Handling
 		self.Ping:SetContentAlignment(5)
 		--self.Ping:SetZPos(0)
 

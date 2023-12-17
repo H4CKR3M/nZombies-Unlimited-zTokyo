@@ -339,9 +339,11 @@ function HUD:Points()
 				p.Name:SizeToContentsY()
 				p.Name:SetContentAlignment(1)
 				function p.Name.Think(s)
-					local n = v:Nick()
-					if n ~= s:GetText() then
-						s:SetText(n)
+					if IsValid(v) then -- [ZT] Exception Handling | Logout
+						local n = v:Nick()
+						if n ~= s:GetText() then
+							s:SetText(n)
+						end
 					end
 				end
 
@@ -352,22 +354,26 @@ function HUD:Points()
 				p.Points:SetTextColor(color_white)
 				if b then p.Points:SetContentAlignment(1) end
 				function p.Points.Think(s)
-					local points = v:GetPoints()
-					if points ~= s.Points then
-						s:SetText(points)
-						s.Points = points
+					if IsValid(v) then -- [ZT] Exception Handling | Logout
+						local points = v:GetPoints()
+						if points ~= s.Points then
+							s:SetText(points)
+							s.Points = points
+						end
 					end
 				end
 
 				function p.Think(s)
-					if v:Team() ~= lteam then
+					if not IsValid(v) or v:Team() ~= lteam then -- [ZT] Exception Handling | Logout
 						s:Remove()
 						self.Players[v] = nil
 					end
 				end
 
 				function p.Points.Think(s)
-					s:SetText(v:GetPoints())
+					if IsValid(v) then -- [ZT] Exception Handling | Logout
+						s:SetText(v:GetPoints())
+					end
 				end
 
 				function p.Paint(s,w,h)
@@ -681,7 +687,16 @@ local colmod = {
 	["$pp_colour_mulb"] = 0
 }
 function HUD:Draw_BleedoutScreenspaceEffects(ply, downtime, deathtime) -- Deathtime will be added later when variable down times is supported and networked
-	local pct = (CurTime() - downtime)/bleedouttime -- For now we just use the static 45 second variable
+	
+	-- [ZT] Exception Handling
+	local pct = 0
+	if downtime == nil then
+		pct = (CurTime() - bleedouttime * 10)/bleedouttime -- For now we just use the static 45 second variable
+	else
+		pct = (CurTime() - downtime)/bleedouttime -- For now we just use the static 45 second variable
+	end
+	-- END ZT
+
 	colmod["$pp_colour_colour"] = 1 - pct
 	colmod["$pp_colour_addr"] = pct*0.5
 	DrawColorModify(colmod)

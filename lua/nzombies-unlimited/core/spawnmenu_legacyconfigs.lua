@@ -625,7 +625,7 @@ nzu.AddSpawnmenuTab("Version/Legacy", "DPanel", function(panel)
 	local name = box:Add("DLabel")
 	name:SetText(basevers)
 	name:Dock(TOP)
-	name:SetFont("HudHintTextLarge")
+	name:SetFont("nzu_Font_TargetID") -- [ZT] Exception Handling
 	name:SizeToContentsY()
 	name:DockMargin(0,0,0,5)
 
@@ -660,7 +660,7 @@ nzu.AddSpawnmenuTab("Version/Legacy", "DPanel", function(panel)
 		local name = box:Add("DLabel")
 		name:SetText("Loading version info ...")
 		name:Dock(TOP)
-		name:SetFont("HudHintTextLarge")
+		name:SetFont("nzu_Font_TargetID") -- [ZT] Exception Handling
 		name:SizeToContentsY()
 		name:DockMargin(0,0,0,5)
 

@@ -273,7 +273,7 @@ end
 
 local function doremoveweapon(ply, wep)
 	local slot = wep:GetWeaponSlot()
-	if slot then
+	if slot and ply.nzu_WeaponSlots then -- [ZT] Exception Handling
 		local wslot = ply.nzu_WeaponSlots[slot]
 		if wslot.Weapon == wep then
 			wslot.Weapon = nil
@@ -690,7 +690,7 @@ We use this with knives to make them instantly attack, regardless of holster ani
 hook.Add("nzu_WeaponEquippedInSlot", "nzu_Weapons_InstantHolsterFunction", function(ply, wep, slot)
 	local old = wep.Holster
 	function wep:Holster(w2)
-		if w2.nzu_InstantDeploy then return true end
+		if w2.nzu_InstantDeploy or old == nil then return true end -- [ZT] Exception Handling - Zero's Vending Machines
 		return old(self, w2)
 	end
 end)

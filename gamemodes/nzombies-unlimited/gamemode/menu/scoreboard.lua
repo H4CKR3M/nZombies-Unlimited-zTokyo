@@ -293,7 +293,7 @@ hook.Add("nzu_GameOverSequence", "nzu_Scoreboard_ShowOnGameOver", function(time)
 end)
 
 hook.Add("nzu_GameOver", "nzu_Scoreboard_ShowGameOverText", function(time)
-	if not LocalPlayer():IsUnspawned() then
+	if LocalPlayer() ~= nil and LocalPlayer().IsUnspawned ~= nil and not LocalPlayer():IsUnspawned() then -- [ZT] Exception Handling | Null Check
 		if IsValid(gameoverpanel) then gameoverpanel:Remove() end
 
 		-- [ZT] Escaped Plugin.

@@ -10,6 +10,7 @@ Changes:
 
 Fixes:
 * Door text displays correctly
+* Missing Font Fixes
 * Varius Exception Handling
 
 All edits are prefixed with the [ZT] prefix, to better help CTRL+F finding changes:
