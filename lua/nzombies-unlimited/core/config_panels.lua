@@ -90,6 +90,14 @@ function PANEL:AddConfig(cfg)
 	pnl:Dock(TOP)
 	
 	if pnl.Config and pnl.Config.Map == game.GetMap() then
+		-- [ZT] Auto-Load Config
+		if ZT_AUTOLOAD then
+			if self:GetSelectable() then 
+				self:SelectConfig(pnl.Config) 
+			end
+			self:OnConfigClicked(pnl.Config, pnl)
+		end
+
 		self.MapConfigList:Add(pnl)
 		self.NoCurrentMapConfigs:SetVisible(false)
 	else

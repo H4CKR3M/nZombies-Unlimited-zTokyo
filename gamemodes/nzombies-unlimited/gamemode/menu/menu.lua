@@ -54,6 +54,29 @@ if CLIENT then
 
 		return b
 	end
+
+	-- [ZT] Auto-Load. Hides Load Config Button
+	local function generateunusablebutton(text, admin, parent)
+		local b = vgui.Create("DButton", parent)
+		b:SetFont("DermaLarge")
+		b:SetText(text) -- Append spaces around to free from edges
+		b:SetTextColor(textcolor)
+		b:SetContentAlignment(4)
+		b:DockMargin(0,1,0,1)
+		b:SetTall(50)
+		b:SetTextInset(10,0)
+
+		b.AdminOnly = admin
+		b:SetDisabled(true)
+
+		--b.Paint = paintfunc
+		b:SetSkin("nZombies Unlimited")
+		b.DoClick = buttondoclick
+		b:Dock(TOP)
+
+		return b
+	end
+
 	function SUBMENU:AddButton(text, zpos, func, admin)
 		if IsValid(self.Contents) then
 			local b = generatebutton(text, admin, self.Contents)
@@ -99,6 +122,27 @@ if CLIENT then
 	function SUBMENU:AddPanel(text, zpos, panel, admin)
 		if IsValid(self.Contents) then
 			local b = generatebutton(text, admin, self.Contents)
+			b:SetZPos(zpos)
+
+			local submenu = vgui.Create("nzu_MenuPanel_SubMenu", self:GetParent())
+			submenu:Dock(FILL)
+			submenu:SetContents(panel)
+			submenu.Menu = self.Menu
+
+			b.SubMenu = self
+			b.SubPanel = submenu
+			submenu:SetPrevious(text, self)
+			b.ClickFunction = submenuclick
+			self.Contents:Add(b)
+
+			return submenu, b
+		end
+	end
+
+	-- [ZT] Auto-Load. Hides Load Config Button
+	function SUBMENU:AddPanelWithoutButton(text, zpos, panel, admin)
+		if IsValid(self.Contents) then
+			local b = generateunusablebutton(text, admin, self.Contents)
 			b:SetZPos(zpos)
 
 			local submenu = vgui.Create("nzu_MenuPanel_SubMenu", self:GetParent())
@@ -310,6 +354,11 @@ if CLIENT then
 	
 	function PANEL:AddPanel(text, zpos, panel, admin)
 		return self.MenuRoot:AddPanel(text, zpos, panel, admin)
+	end
+
+	-- [ZT] Auto-Load. Hides Load Config Button
+	function PANEL:AddPanelWithoutButton(text, zpos, panel, admin)
+		return self.MenuRoot:AddPanelWithoutButton(text, zpos, panel, admin)
 	end
 	
 	--function PANEL:AddNetworkedButton(text, )

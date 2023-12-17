@@ -1,7 +1,7 @@
 -- Create a global module
 nzu = nzu or {}
 
-function nzu.IsAdmin(ply) return ply:IsAdmin() end -- TODO: Replace this later
+function nzu.IsAdmin(ply) return ZT_AUTOLOAD and true or ply:IsAdmin() end -- [ZT] Auto-Load. Admin Rights
 
 -- Globals to act like SERVER and CLIENT (reversed when modules are loaded in the main mode)
 NZU_SANDBOX = true

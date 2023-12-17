@@ -249,7 +249,11 @@ function nzu.LoadConfig(config, ctype, mode)
 				if NZU_NZOMBIES then RunConsoleCommand("nzu_sandbox_enable", "1") end
 				RunConsoleCommand("gamemode", NZU_NZOMBIES and "sandbox" or "nzombies-unlimited")
 			end
-			RunConsoleCommand("changelevel", config.Map)
+			
+			-- [ZT] Auto-Load Config (Disabled to Fix bug where config randomly switches)
+			if ZT_AUTOLOAD == false then
+				RunConsoleCommand("changelevel", config.Map)
+			end
 		end
 	end)
 	print("nzu_saveload: Couldn't write config_to_load.txt after 5 attempts. Manually change the map and load the config again.")

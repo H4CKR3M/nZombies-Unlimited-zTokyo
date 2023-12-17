@@ -1,3 +1,6 @@
+-- [ZT] Auto-Load Config
+ZT_AUTOLOAD = true -- Please DISABLE for singleplayer config creation
+
 GM.Name = "nZombies Unlimited"
 GM.Author = "Zet0r"
 GM.Email = "N/A"
@@ -17,7 +20,7 @@ end
 
 -- Logic for loading modules from /lua/nzombies-unlimited
 nzu = nzu or {}
-function nzu.IsAdmin(ply) return ply:IsAdmin() end -- Replace this later
+function nzu.IsAdmin(ply) return ZT_AUTOLOAD and true or ply:IsAdmin() end -- [ZT] Auto-Load. Admin Rights
 
 -- Globals to act like SERVER and CLIENT (reversed when modules are loaded in the sandbox)
 NZU_SANDBOX = false

@@ -15,7 +15,8 @@ if CLIENT then
 		end
 		
 		local l = vgui.Create("nzu_ConfigList")
-		local sub = menu:AddPanel("Load Config ...", 3, l, true)
+		local sub = ZT_AUTOLOAD and 
+		if ZT_AUTOLOAD then menu:AddPanelWithoutButton("", 3, l, true) or menu:AddPanel("Load Config ...", 3, l, true) -- [ZT] Auto-Load Config. Hide LOAD CONFIG button
 		l:Dock(FILL)
 		l:SetPaintBackground(true)
 		l:SetSelectable(true)
@@ -69,6 +70,11 @@ if CLIENT then
 			c.Authors = net.ReadString()
 
 			menu:SetConfig(c)
+
+			-- [ZT] Auto-Load Config
+			if ZT_AUTOLOAD and menu:GetConfig() then
+				nzu.RequestLoadConfig(menu:GetConfig())
+			end
 		end)
 
 		-- Add a function to the Ready Button to load the config
@@ -84,6 +90,12 @@ if CLIENT then
 				return not nzu.CurrentConfig or cfg.Codename ~= nzu.CurrentConfig.Codename or cfg.Type ~= nzu.CurrentConfig.Type
 			end
 		end, readybuttonload, true)
+
+		-- [ZT] Auto-Load Config
+		if ZT_AUTOLOAD then
+			l:LoadConfigs()
+			l:SelectConfig(menu:GetConfig())
+		end
 
 	end)
 end
