@@ -15,8 +15,7 @@ if CLIENT then
 		end
 		
 		local l = vgui.Create("nzu_ConfigList")
-		local sub = ZT_AUTOLOAD and 
-		if ZT_AUTOLOAD then menu:AddPanelWithoutButton("", 3, l, true) or menu:AddPanel("Load Config ...", 3, l, true) -- [ZT] Auto-Load Config. Hide LOAD CONFIG button
+		local sub = ZT_AUTOLOAD and menu:AddPanelWithoutButton("", 3, l, true) or menu:AddPanel("Load Config ...", 3, l, true) -- [ZT] Auto-Load Config. Hide LOAD CONFIG button
 		l:Dock(FILL)
 		l:SetPaintBackground(true)
 		l:SetSelectable(true)

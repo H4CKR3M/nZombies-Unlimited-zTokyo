@@ -6,6 +6,7 @@ function nzu.IsAdmin(ply) return ZT_AUTOLOAD and true or ply:IsAdmin() end -- [Z
 -- Globals to act like SERVER and CLIENT (reversed when modules are loaded in the main mode)
 NZU_SANDBOX = true
 NZU_NZOMBIES = false
+ZT_AUTOLOAD = game.IsDedicated() -- -- [ZT] Auto-Load Config - Please DISABLE for singleplayer config creation
 
 local function loadfile(f)
 	if SERVER then AddCSLuaFile(f) end

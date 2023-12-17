@@ -251,7 +251,11 @@ function nzu.LoadConfig(config, ctype, mode)
 			end
 			
 			-- [ZT] Auto-Load Config (Disabled to Fix bug where config randomly switches)
+			print('IS Autoload true?')
+			print(NZU_NZOMBIES)
+			print(ZT_AUTOLOAD)
 			if ZT_AUTOLOAD == false then
+				print('RUNNING COMMAND!')
 				RunConsoleCommand("changelevel", config.Map)
 			end
 		end

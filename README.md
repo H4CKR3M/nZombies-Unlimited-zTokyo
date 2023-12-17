@@ -9,9 +9,15 @@ Changes:
 * Rebalancing
 
 Fixes:
+* Updated to work with Gmod December 2023 Update
 * Door text displays correctly
 * Missing Font Fixes
 * Varius Exception Handling
+
+Bugs:
+* <u>**Save and Play**</u> button does not work, press <u>**Save Config**</u> and <u>**Load and Play**</u> as a workaround
+
+------
 
 All edits are prefixed with the [ZT] prefix, to better help CTRL+F finding changes:
 * [ZT] Text-Fix
