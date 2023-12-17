@@ -356,7 +356,7 @@ if CLIENT then
 
 	local countdowntextstates = {
 		[ROUND_PREPARING] = "Prepare",
-		[ROUND_ONGOING] = "Ongoing",
+		[ROUND_ONGOING] = "Ongoing - Wait for your team to clear the wave.", -- [ZT] UI
 		[ROUND_GAMEOVER] = "GAME OVER"
 	}
 	local countdownsound = Sound("nzu/menu/countdown.wav")
@@ -425,6 +425,10 @@ if CLIENT then
 		self.LeftSide:Dock(LEFT)
 		self.LeftSide:SetWide(w)
 		self.LeftSide:DockMargin(100,100,50,50)
+
+		-- [ZT] UI -- Scaling for ULTRAWIDE Monitor Users, Disabled
+		--self.LeftSide:SetSize( 1000, 1200 )
+		--self.LeftSide:SetMinimumSize( nil, 400 )
 
 		self.CloseButton = self:Add("DButton")
 		self.CloseButton:SetPos(50,25)

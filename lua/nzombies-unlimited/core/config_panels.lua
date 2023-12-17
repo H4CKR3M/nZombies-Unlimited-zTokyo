@@ -323,7 +323,7 @@ AccessorFunc(MAPPANEL, "m_strNoConfigAuthors", "NoConfigAuthors", FORCE_STRING)
 function MAPPANEL:SetConfig(config)
 	self.Config = config
 	if config then
-		self:SetImage(nzu.GetConfigThumbnail(config), fallback)
+		-- self:SetImage(nzu.GetConfigThumbnail(config), fallback) -- [ZT] UI. Hide black bar / image
 		self.Map:SetText(config.Map)
 		self.Map:SizeToContents()
 		self.Name:SetText(config.Name)
@@ -331,7 +331,7 @@ function MAPPANEL:SetConfig(config)
 		self.Authors:SetText(config.Authors)
 		self.Authors:SizeToContents()			
 	else
-		self:SetImage(self:GetNoConfigImage() or fallback, fallback)
+		-- self:SetImage(self:GetNoConfigImage() or fallback, fallback) -- [ZT] UI. Hide black bar / image
 		self.Map:SetText(self:GetNoConfigMap() or "")
 		self.Map:SizeToContents()
 		self.Name:SetText(self:GetNoConfigName() or "No Config selected")

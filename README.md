@@ -1,3 +1,28 @@
+# nZombies Unlimited ZTokyo
+This is an edited version of the nZombies-Unlimited mod with changed made for the ZTokyo nZombies server, with the goal of the server remaining online without an admin present loading configs and unsticking zombies. You're welcome to use this fork for your own purposes as well.
+
+Changes:
+* Autoload Config
+* Mapvote Support
+* Escape Feature / Victory Condition
+* Auto-Kill Remaining Zombies (anti-stuck)
+* Rebalancing
+
+Fixes:
+* Door text displays correctly
+* Varius Exception Handling
+
+All edits are prefixed with the [ZT] prefix, to better help CTRL+F finding changes:
+* [ZT] Text-Fix
+* [ZT] Balancing
+* [ZT] UI
+* [ZT] 
+* [ZT] 
+* [ZT] 
+* [ZT] 
+* [ZT] 
+* [ZT] 
+
 # nZombies Unlimited
 nZombies Unlimited is an experimental idea of breaking the [original nZombies](https://github.com/Zet0rz/nzombies) free from its limits. It is a complete recreation built from the ground up with the idea of modularizing _everything_ and supporting full toolkits for Config creation.
 
