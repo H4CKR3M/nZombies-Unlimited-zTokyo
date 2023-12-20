@@ -132,13 +132,13 @@ if SERVER then
 
 		-- [ZT] Text-Fix - Display Price/Group/Electricity
 		self:SetNW2String("nzu_DoorData_Price", data.Price)
-		if data.Group and data.Group != nil then
+		if data.Group and data.Group ~= nil then
 			self:SetNW2String("nzu_DoorData_Group", (data.Group or "\""))
 		end
-		if data.Electricity and data.Electricity != false then
+		if data.Electricity and data.Electricity ~= false then
 			self:SetNW2String("nzu_DoorData_Electricity", (data.Electricity and "1" or "0"))
 		end
-		if data.FlagOpen and data.FlagOpen != false then
+		if data.FlagOpen and data.FlagOpen ~= false then
 			self:SetNW2String("nzu_DoorData_FlagOpen", (data.FlagOpen and "1" or "0"))
 		end
 		local str = ""

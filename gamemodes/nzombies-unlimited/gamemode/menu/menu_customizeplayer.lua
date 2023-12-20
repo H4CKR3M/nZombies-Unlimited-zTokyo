@@ -189,7 +189,7 @@ hook.Add("nzu_MenuCreated", "CustomizePlayer", function(menu)
 	UpdateFromConvars()
 
 	function models:OnActivePanelChanged( old, new )
-		if ( old != new ) then -- Only reset if we changed the model
+		if ( old ~= new ) then -- Only reset if we changed the model
 			RunConsoleCommand( "cl_playerbodygroups", "0" )
 			RunConsoleCommand( "cl_playerskin", "0" )
 		end
