@@ -1,4 +1,4 @@
-# nZombies Unlimited ZTokyo
+# Garry's Mod: nZombies Unlimited ZTokyo
 This is a fork of the nZombies-Unlimited mod with changes made for the **Zombies in Tokyo** server, with a goal to run the gamemode autonomously without an admin present to load configs and delete stuck zombies. Some rather *radical* balancing changes were put in place, but you're welcome to use this fork for your own purposes, whether that be Singleplayer config creation or a dedicated server.
 
 ### New Features
